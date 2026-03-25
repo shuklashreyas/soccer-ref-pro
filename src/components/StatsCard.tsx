@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface StatsCardProps {
   title: string;
@@ -25,9 +26,13 @@ const StatsCard = ({ title, value, icon: Icon, trend, className }: StatsCardProp
             <p className="mt-1 text-xs text-primary">{trend}</p>
           )}
         </div>
-        <div className="rounded-lg bg-primary/10 p-3">
+        <motion.div
+          className="rounded-lg bg-primary/10 p-3"
+          whileHover={{ rotate: 12, scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
           <Icon className="h-5 w-5 text-primary" />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
