@@ -1,0 +1,120 @@
+import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
+import { Search, Filter } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import VerdictBadge from "@/components/VerdictBadge";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { mockAnalyses } from "@/data/mockData";
+import { cn } from "@/lib/utils";
+
+type FilterType = "all" | "foul" | "no_foul" | "yellow" | "red" | "penalty" | "offside";
+
+const filters: { value: FilterType; label: string }[] = [
+  { value: "all", label: "All" },
+  { value: "foul", label: "Fouls" },
+  { value: "no_foul", label: "No Foul" },
+  { value: "yellow", label: "Yellow Card" },
+  { value: "red", label: "Red Card" },
+  { value: "penalty", label: "Penalty" },
+  { value: "offside", label: "Offside" },
+];
+
+const History = () => {
+  const [search, setSearch] = useState("");
+  const [activeFilter, setActiveFilter] = useState<FilterType>("all");
+
+  const filtered = useMemo(() => {
+    return mockAnalyses.filter((a) => {
+      const matchesSearch = a.videoName.toLowerCase().includes(search.toLowerCase());
+      if (!matchesSearch) return false;
+      switch (activeFilter) {
+        case "foul": return a.verdict === "foul";
+        case "no_foul": return a.verdict === "no_foul";
+        case "yellow": return a.cardType === "yellow";
+        case "red": return a.cardType === "red";
+        case "penalty": return a.penaltyType === "penalty";
+        case "offside": return a.offside;
+        default: return true;
+      }
+    });
+  }, [search, activeFilter]);
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <main className="container py-8">
+        <div className="mb-8">
+          <h1 className="font-display text-3xl font-bold tracking-wider text-foreground">
+            ANALYSIS <span className="text-primary">HISTORY</span>
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Browse and filter past referee analyses
+          </p>
+        </div>
+
+        {/* Search & Filters */}
+        <div className="mb-6 space-y-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              placeholder="Search by video name..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-10 bg-card border-border"
+            />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Filter className="h-4 w-4 text-muted-foreground mt-2" />
+            {filters.map((f) => (
+              <Button
+                key={f.value}
+                variant={activeFilter === f.value ? "default" : "outline"}
+                size="sm"
+                onClick={() => setActiveFilter(f.value)}
+                className={cn(
+                  "font-display text-xs tracking-wider",
+                  activeFilter !== f.value && "border-border text-muted-foreground"
+                )}
+              >
+                {f.label}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        {/* Results */}
+        <div className="space-y-3">
+          {filtered.length === 0 ? (
+            <div className="rounded-xl border border-border bg-card p-12 text-center">
+              <p className="text-muted-foreground">No analyses match your filters.</p>
+            </div>
+          ) : (
+            filtered.map((analysis) => (
+              <Link
+                key={analysis.id}
+                to={`/analysis/${analysis.id}`}
+                className="flex items-center justify-between rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-[0_0_15px_hsl(var(--primary)/0.08)]"
+              >
+                <div>
+                  <p className="text-sm font-medium text-foreground">{analysis.videoName}</p>
+                  <p className="text-xs text-muted-foreground">{analysis.date} · {analysis.duration}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <VerdictBadge type="verdict" value={analysis.verdict} />
+                  <VerdictBadge type="card" value={analysis.cardType} />
+                  {analysis.offside && <VerdictBadge type="offside" value={true} />}
+                  <span className="ml-2 font-display text-sm font-bold text-foreground">
+                    {analysis.confidence}%
+                  </span>
+                </div>
+              </Link>
+            ))
+          )}
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default History;
