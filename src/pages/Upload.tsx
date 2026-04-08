@@ -58,7 +58,7 @@ const Upload = () => {
               VIDEO <span className="text-primary">ANALYSIS</span>
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Upload match footage for AI referee analysis
+              Upload match footage for Refara analysis
             </p>
           </motion.div>
 
