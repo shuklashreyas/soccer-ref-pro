@@ -16,7 +16,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <img src={refaraLogo} alt="Refara" width={36} height={36} className="rounded-lg" />
+          <img src={refaraLogo} alt="Refara" width={40} height={40} className="rounded-full bg-white p-0.5" />
           <span className="font-display text-lg font-bold tracking-wider text-foreground">
             REFA<span className="text-primary">RA</span>
           </span>
