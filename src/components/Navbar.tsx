@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Upload, History, Zap } from "lucide-react";
+import { LayoutDashboard, Upload, History } from "lucide-react";
 import { cn } from "@/lib/utils";
+import refaraLogo from "@/assets/refara-logo.png";
 
 const navItems = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -15,11 +16,9 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 border border-primary/30">
-            <Zap className="h-5 w-5 text-primary" />
-          </div>
+          <img src={refaraLogo} alt="Refara" width={36} height={36} className="rounded-lg" />
           <span className="font-display text-lg font-bold tracking-wider text-foreground">
-            AI <span className="text-primary">REF</span>
+            REFA<span className="text-primary">RA</span>
           </span>
         </Link>
 

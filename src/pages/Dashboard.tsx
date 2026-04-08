@@ -30,7 +30,7 @@ const Dashboard = () => {
                 COMMAND <span className="text-primary">CENTER</span>
               </h1>
               <p className="mt-1 text-sm text-muted-foreground">
-                Real-time AI referee analysis overview
+                Real-time Refara analysis overview
               </p>
             </div>
             <Link to="/upload">
