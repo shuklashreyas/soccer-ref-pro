@@ -1,36 +1,32 @@
 # Refara
 
-Refara is an AI soccer referee product that analyzes uploaded incident clips and returns a decision:
+![Refara Logo](src/assets/refara-logo.png)
 
-- Foul or no foul
-- Restart decision (play on, free kick, penalty)
-- Card recommendation (none, yellow, red)
+AI soccer referee for foul incident clips.
 
-## Project structure
+Refara analyzes uploaded match footage and returns:
+- foul decision
+- restart decision (play on, free kick, penalty)
+- card recommendation (none, yellow, red)
 
-- Frontend: React + Vite in `src`
-- Backend: Express + TypeScript in `backend`
+## Tech Stack
 
-## Frontend
+- Frontend: React + Vite + TypeScript
+- Backend: Express + TypeScript
 
-Install and run:
+## Project Layout
 
+- `src`: frontend app
+- `backend`: API server
+- `docs`: product and data documentation
+
+## Quick Start
+
+Frontend:
 1. `npm install`
 2. `npm run dev`
 
-Current frontend pages are wired to mock analysis data. Next integration step is to call backend API endpoints from upload and detail pages.
-
-## Backend
-
-Backend scaffold includes:
-
-- Video upload endpoint
-- Analysis job lifecycle (`uploaded -> processing -> completed`)
-- In-memory analysis repository
-- Mock analysis service (replace with real model inference)
-
-Run backend:
-
+Backend:
 1. `cd backend`
 2. `npm install`
 3. `cp .env.example .env`
@@ -38,13 +34,20 @@ Run backend:
 
 Default backend URL: `http://localhost:4000`
 
-## API endpoints
+## API
 
 - `GET /api/health`
-- `POST /api/analyses` (multipart form-data, field name: `clip`)
+- `POST /api/analyses` (multipart form-data, file field: `clip`)
 - `GET /api/analyses`
 - `GET /api/analyses/:analysisId`
 
-## Training data guide
+## Current Status
 
-See `docs/training-data-guide.md` for a practical dataset and labeling plan tailored to manually clipped soccer incidents.
+- Frontend flow is currently mock-driven.
+- Backend upload + analysis job flow is scaffolded.
+- Analysis service is currently mocked and ready for model inference integration.
+
+## Documentation
+
+- Training data and labeling guide: `docs/training-data-guide.md`
+- Backend details: `backend/README.md`
