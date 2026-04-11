@@ -1,6 +1,10 @@
 # Refara
 
-![Refara Logo](src/assets/refara-logo.png)
+<p align="center">
+	<span style="display:inline-block;background:#ffffff;padding:10px 14px;border-radius:12px;">
+		<img src="src/assets/refara-logo.png" alt="Refara Logo" width="220" />
+	</span>
+</p>
 
 AI soccer referee for foul incident clips.
 
